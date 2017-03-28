@@ -9,82 +9,85 @@ using CrankBank.Data;
 namespace CrankBank.Controllers
 {
     [Produces("application/json")]
-    [Route("api/StudentMastersAPI")]
-    public class StudentMastersAPI : Controller
+    [Route("api/Student")]
+    public class StudentController : Controller
     {
         private readonly StudentContext _context;
-        public StudentMastersAPI(StudentContext context)
+        public StudentController(StudentContext context)
         {
             _context = context;
         }
 
-        // GET: api/StudentMastersAPI/Student  
+        // GET: api/Student/GetStudentMasters  
 
         [HttpGet]
-        [Route("Student")]
-        public IEnumerable<StudentMasters> GetStudentMasters()
+        [Route("StudentMasters")]
+        public IEnumerable<Data.StudentMasters> GetStudentMasters()
         {
-            IEnumerable<StudentMasters> _retArray = _context.StudentMasters as IEnumerable<StudentMasters>;
+            IEnumerable<Data.StudentMasters> _retArray = _context.StudentMasters as IEnumerable<Data.StudentMasters>;
             return _retArray;
         }
 
-/*
-        // GET: api/StudentMastersAPI/GetAccountSummariesDB  
+
+        // GET: api/Student/GetAccountSummariesDB  
+
         [HttpGet]
-        [Route("GetAccountSummariesDB")]
-        public IEnumerable<AccountSummaries> GetAccountSummariesDB()
+        [Route("GetAccountSummaries")]
+        public IEnumerable<AccountSummaries> GetAccountSummaries()
         {
-            IEnumerable<AccountSummaries> _retArray = _context.AccountSummariesDB as IEnumerable<AccountSummaries>;
+            IEnumerable<AccountSummaries> _retArray = _context.AccountSummaries as IEnumerable<AccountSummaries>;
             return _retArray;
         }
 
-        // GET: api/StudentMastersAPI/GetAccountSummariesSELECT  
+        // GET: api/Student/GetAccountSummariesSELECT  
+
         [HttpGet]
         [Route("GetAccountSummariesSELECT")]
         public IEnumerable<AccountSummaries> GetAccountSummariesSELECT()
         {
-            var _results = _context.AccountSummariesDB.FromSql("Select * from AccountSummariesDb")
+            var _results = _context.AccountSummaries.FromSql("Select * from AccountSummariesDb")
                 .OrderBy(s => s.Balance)
                 .ToList();
             return _results;
         }
 
-        // GET: api/StudentMastersAPI/GetAccountSummariesSprocSelect  
+        // GET: api/Student/GetAccountSummariesSprocSelect  
+
         [HttpGet]
         [Route("GetAccountSummariesSprocSelect")]
         public IEnumerable<AccountSummaries> GetAccountSummariesSprocSelect()
         {
-            var _results = _context.AccountSummariesDB.FromSql("Execute usp_AccountSummaries_Select ")
+            var _results = _context.AccountSummaries.FromSql("Execute usp_AccountSummaries_Select ")
                 .OrderBy(s => s.Balance)
                 .ToList();
             return _results;
         }
 
-        // GET: api/StudentMastersAPI/GetAccountSummariesSprocWithParam  
+        // GET: api/Student/GetAccountSummariesSprocWithParam  
+
         [HttpGet]
         [Route("GetAccountSummariesSprocWithParam")]
         public IEnumerable<AccountSummaries> GetAccountSummariesSpocWithParam()
         {
             string _accountId = "712-022-9234";
 
-            var _results = _context.AccountSummariesDB.FromSql("Execute usp_AccountSummaries_WithParam @p0", _accountId)
+            var _results = _context.AccountSummaries.FromSql("Execute usp_AccountSummaries_WithParam @p0", _accountId)
                 .ToList();
             return _results;
         }
 
-        // GET: api/StudentMastersAPI/GetAccountSummariesSprocWithParamUpdate  
+        // GET: api/Student/GetAccountSummariesSprocWithParamUpdate  
+
         [HttpGet]
         [Route("GetAccountSummariesSprocWithParamUpdate")]
         public IEnumerable<AccountSummaries> GetAccountSummariesSpocWithParamUpdate()
         {
             string _accountId = "712-022-9234";
 
-            var _results = _context.AccountSummariesDB.FromSql("Execute usp_AccountSummaries_WithParamUpdate @p0", _accountId)
+            var _results = _context.AccountSummaries.FromSql("Execute usp_AccountSummaries_WithParamUpdate @p0", _accountId)
                 .ToList();
             return _results;
         }
-
-*/
 
     }
 }
